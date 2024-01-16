@@ -6,6 +6,7 @@ import Home from "../screens/Home";
 import Study from "../screens/Study";
 import CreateDeck from "../screens/CreateDeck";
 import Deck from "../screens/Deck";
+import EditDeck from "../screens/EditDeck";
 
 function Layout() {
   return (
@@ -21,6 +22,9 @@ function Layout() {
           </Route>
           <Route path="/decks/:deckId/study">
             <Study />
+          </Route>
+          <Route path="/decks/:deckId/edit">
+            <EditDeck />
           </Route>
           <Route path="/">
             <Home />
