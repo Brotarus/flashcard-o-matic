@@ -70,9 +70,11 @@ function Study() {
         <button className="btn btn-secondary mr-2" onClick={handleFlip}>
           Flip
         </button>
-        <button className="btn btn-primary" onClick={handleNext}>
-          Next
-        </button>
+        {isFlipped && (
+          <button className="btn btn-primary" onClick={handleNext}>
+            Next
+          </button>
+        )}
       </div>
     );
   };
