@@ -12,7 +12,6 @@ function AddCard() {
     try {
       await createCard(deckId, { front, back });
       const deck = await readDeck(deckId);
-      // Optional: You can redirect to the Deck screen after adding a card
       history.push(`/decks/${deck.id}`);
     } catch (error) {
       console.error("Error adding card:", error);
@@ -21,6 +20,19 @@ function AddCard() {
 
   return (
     <div>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to={`/decks/${deckId}`}>Deck Name</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Add Card
+          </li>
+        </ol>
+      </nav>
       <h2>Add Card</h2>
       {/* Form for adding a new card */}
       <form>
