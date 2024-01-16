@@ -42,7 +42,7 @@ function Home() {
             <div className="card-body">
               <h5 className="card-title">{deck.name}</h5>
               <p className="card-text">{deck.description}</p>
-              <p className="card-text">Number of Cards: {deck.cards.length}</p>
+              <p className="card-text">{deck.cards.length} cards</p>
               <Link to={`/decks/${deck.id}`} className="btn btn-secondary mr-2">
                 View
               </Link>
