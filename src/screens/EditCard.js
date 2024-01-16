@@ -1,4 +1,3 @@
-// src/screens/EditCard.js
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck, readCard, updateCard } from "../utils/api/index";
@@ -57,7 +56,7 @@ function EditCard() {
       <h2>{deck ? `${deck.name}: ` : ""}Edit Card</h2>
       {/* Form for editing the card */}
       <CardForm
-        initialValues={{ front: card.front, back: card.back }}
+        initialValues={{ front, back }}
         onSubmit={handleUpdateCard}
         onCancel={() => history.push(`/decks/${deckId}`)}
         actionText="Save"
