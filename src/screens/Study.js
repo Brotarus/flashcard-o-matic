@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck } from "../utils/api/index";
 
 function Study() {
@@ -7,6 +7,7 @@ function Study() {
   const [deck, setDeck] = useState(null);
   const [cardIndex, setCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     loadDeck();
@@ -26,8 +27,21 @@ function Study() {
   };
 
   const handleNext = () => {
-    setCardIndex((prevIndex) => prevIndex + 1);
-    setIsFlipped(false);
+    if (cardIndex === deck.cards.length - 1) {
+      // Reached the last card
+      const shouldRestart = window.confirm("Do you want to restart the deck?\n\nClick 'cancel' to return to the home page.");
+      if (shouldRestart) {
+        setCardIndex(0);
+        setIsFlipped(false);
+      } else {
+        // If the user chooses not to restart, navigate to home
+        history.push("/");
+      }
+    } else {
+      // Increment cardIndex and flip to front
+      setCardIndex((prevIndex) => prevIndex + 1);
+      setIsFlipped(false);
+    }
   };
 
   const renderStudyContent = () => {
@@ -35,18 +49,19 @@ function Study() {
       return <p>Loading...</p>;
     }
 
-    const currentCard = deck.cards[cardIndex];
-
-    if (!currentCard) {
+    if (deck.cards.length <= 2) {
+      // Not enough cards
       return (
         <div>
-          <p>Congratulations! You've completed studying all cards.</p>
-          <Link to={`/decks/${deck.id}`} className="btn btn-secondary">
-            Back to Deck
+          <p>Not enough cards to study. Add more cards to the deck.</p>
+          <Link to={`/decks/${deck.id}/cards/new`} className="btn btn-primary">
+            Add Cards
           </Link>
         </div>
       );
     }
+
+    const currentCard = deck.cards[cardIndex];
 
     return (
       <div>
