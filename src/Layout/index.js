@@ -7,6 +7,7 @@ import Study from "../screens/Study";
 import CreateDeck from "../screens/CreateDeck";
 import Deck from "../screens/Deck";
 import EditDeck from "../screens/EditDeck";
+import AddCard from "../screens/AddCard";
 
 function Layout() {
   return (
@@ -25,6 +26,9 @@ function Layout() {
           </Route>
           <Route path="/decks/:deckId/edit">
             <EditDeck />
+          </Route>
+          <Route path="/decks/:deckId/cards/new">
+            <AddCard />
           </Route>
           <Route path="/">
             <Home />
