@@ -47,7 +47,7 @@ function AddCard() {
           </li>
         </ol>
       </nav>
-      <h2>Add Card</h2>
+      <h2>{deck ? `${deck.name}: ` : ""}Add Card</h2>
       {/* Form for adding a new card */}
       <form>
         <div className="mb-3">
