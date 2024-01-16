@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck, readCard, updateCard } from "../utils/api/index";
+import CardForm from "../components/CardForm";
 
 function EditCard() {
   const { deckId, cardId } = useParams();
@@ -53,41 +54,14 @@ function EditCard() {
         </ol>
       </nav>
 
-      <h2>Edit Card</h2>
+      <h2>{deck ? `${deck.name}: ` : ""}Edit Card</h2>
       {/* Form for editing the card */}
-      <form>
-        <div className="mb-3">
-          <label htmlFor="front" className="form-label">
-            Front
-          </label>
-          <textarea
-            className="form-control"
-            id="front"
-            rows="3"
-            value={front}
-            onChange={(e) => setFront(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="back" className="form-label">
-            Back
-          </label>
-          <textarea
-            className="form-control"
-            id="back"
-            rows="3"
-            value={back}
-            onChange={(e) => setBack(e.target.value)}
-          ></textarea>
-        </div>
-
-        <Link to={`/decks/${deckId}`} className="btn btn-secondary mr-2">
-          Cancel
-        </Link>
-        <button type="button" className="btn btn-primary" onClick={handleUpdateCard}>
-          Save
-        </button>
-      </form>
+      <CardForm
+        initialValues={{ front: card.front, back: card.back }}
+        onSubmit={handleUpdateCard}
+        onCancel={() => history.push(`/decks/${deckId}`)}
+        actionText="Save"
+      />
     </div>
   );
 }

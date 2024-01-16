@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { createCard, readDeck } from "../utils/api/index";
+import CardForm from "../components/CardForm";
 
 function AddCard() {
   const { deckId } = useParams();
@@ -49,38 +50,11 @@ function AddCard() {
       </nav>
       <h2>{deck ? `${deck.name}: ` : ""}Add Card</h2>
       {/* Form for adding a new card */}
-      <form>
-        <div className="mb-3">
-          <label htmlFor="front" className="form-label">
-            Front
-          </label>
-          <textarea
-            className="form-control"
-            id="front"
-            rows="3"
-            value={front}
-            onChange={(e) => setFront(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="back" className="form-label">
-            Back
-          </label>
-          <textarea
-            className="form-control"
-            id="back"
-            rows="3"
-            value={back}
-            onChange={(e) => setBack(e.target.value)}
-          ></textarea>
-        </div>
-        <Link to={`/decks/${deckId}`} className="btn btn-secondary mr-2">
-          Cancel
-        </Link>
-        <button type="button" className="btn btn-primary" onClick={handleAddCard}>
-          Save
-        </button>
-      </form>
+      <CardForm
+        initialValues={{ front, back }} 
+        onSubmit={handleAddCard}
+        onCancel={() => history.push(`/decks/${deckId}`)}
+        actionText="Save" />
     </div>
   );
 }
