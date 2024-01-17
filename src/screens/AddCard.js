@@ -53,15 +53,15 @@ function AddCard() {
       <h2>{deck ? `${deck.name}: ` : ""}Add Card</h2>
       {/* Form for adding a new card */}
       <CardForm
-  initialValues={{ front, back }}
-  onSubmit={handleAddCard}
-  onCancel={() => history.push(`/decks/${deckId}`)}
-  actionText="Save"
-  onUpdateValues={(updatedValues) => {
-    setFront(updatedValues.front);
-    setBack(updatedValues.back);
-  }}
-/>
+        initialValues={{ front, back }}
+        onSubmit={handleAddCard}
+        onCancel={() => history.push(`/decks/${deckId}`)}
+        actionText="Save"
+        onUpdateValues={(updatedValues) => {
+          setFront(updatedValues.front);
+          setBack(updatedValues.back);
+        }}
+      />
     </div>
   );
 }
