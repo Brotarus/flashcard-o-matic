@@ -38,6 +38,8 @@ function EditCard() {
     }
   };
 
+  console.log("EditCard Initial Values:", { front, back });
+
   return (
     <div>
       <nav aria-label="breadcrumb">
