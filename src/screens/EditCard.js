@@ -9,6 +9,7 @@ function EditCard() {
   const [card, setCard] = useState({});
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
+  const [dataLoaded, setDataLoaded] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ function EditCard() {
         setCard(loadedCard);
         setFront(loadedCard.front);
         setBack(loadedCard.back);
+        setDataLoaded(true);
       } catch (error) {
         console.error("Error loading deck and card:", error);
       }
@@ -38,8 +40,6 @@ function EditCard() {
     }
   };
 
-  console.log("EditCard Initial Values:", { front, back });
-
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -57,17 +57,19 @@ function EditCard() {
       </nav>
 
       <h2>{deck ? `${deck.name}: ` : ""}Edit Card</h2>
-      {/* Form for editing the card */}
-      <CardForm
-        initialValues={{ front, back }}
-        onSubmit={handleUpdateCard}
-        onCancel={() => history.push(`/decks/${deckId}`)}
-        actionText="Save"
-        onUpdateValues={(updatedValues) => {
-          setFront(updatedValues.front);
-          setBack(updatedValues.back);
-        }}
-      />
+
+      {dataLoaded && (
+        <CardForm
+          initialValues={{ front, back }}
+          onSubmit={handleUpdateCard}
+          onCancel={() => history.push(`/decks/${deckId}`)}
+          actionText="Save"
+          onUpdateValues={(updatedValues) => {
+            setFront(updatedValues.front);
+            setBack(updatedValues.back);
+          }}
+        />
+      )}
     </div>
   );
 }
