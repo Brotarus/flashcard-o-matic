@@ -25,9 +25,11 @@ function AddCard() {
 
   const handleAddCard = async () => {
     try {
+      console.log("Creating card:", { front, back });
       await createCard(deckId, { front, back });
-      const deck = await readDeck(deckId);
-      history.push(`/decks/${deck.id}`);
+      const updatedDeck = await readDeck(deckId);
+      setDeck(updatedDeck);
+      history.push(`/decks/${updatedDeck.id}`);
     } catch (error) {
       console.error("Error adding card:", error);
     }
@@ -51,10 +53,15 @@ function AddCard() {
       <h2>{deck ? `${deck.name}: ` : ""}Add Card</h2>
       {/* Form for adding a new card */}
       <CardForm
-        initialValues={{ front, back }} 
-        onSubmit={handleAddCard}
-        onCancel={() => history.push(`/decks/${deckId}`)}
-        actionText="Save" />
+  initialValues={{ front, back }}
+  onSubmit={handleAddCard}
+  onCancel={() => history.push(`/decks/${deckId}`)}
+  actionText="Save"
+  onUpdateValues={(updatedValues) => {
+    setFront(updatedValues.front);
+    setBack(updatedValues.back);
+  }}
+/>
     </div>
   );
 }

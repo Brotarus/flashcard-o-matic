@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
-function CardForm({ onSubmit, onCancel, initialValues, actionText }) {
-  const [front, setFront] = useState("");
-  const [back, setBack] = useState("");
-
-  useEffect(() => {
-    // Set initial values only once when the component mounts
-    setFront(initialValues.front || "");
-    setBack(initialValues.back || "");
-  }, [initialValues]);
+function CardForm({ onSubmit, onCancel, initialValues, actionText, onUpdateValues }) {
+  const [front, setFront] = useState(initialValues.front || "");
+  const [back, setBack] = useState(initialValues.back || "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Submitting card info:", { front, back });
     onSubmit({ front, back });
   };
+
+  useEffect(() => {
+    onUpdateValues({ front, back });
+  }, [front, back, onUpdateValues]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -54,4 +52,3 @@ function CardForm({ onSubmit, onCancel, initialValues, actionText }) {
 }
 
 export default CardForm;
-

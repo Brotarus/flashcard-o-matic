@@ -30,6 +30,7 @@ function EditCard() {
 
   const handleUpdateCard = async () => {
     try {
+      console.log("Updating card:", { ...card, front, back });
       await updateCard({ ...card, front, back });
       history.push(`/decks/${deckId}`);
     } catch (error) {
@@ -56,11 +57,15 @@ function EditCard() {
       <h2>{deck ? `${deck.name}: ` : ""}Edit Card</h2>
       {/* Form for editing the card */}
       <CardForm
-        initialValues={{ front, back }}
-        onSubmit={handleUpdateCard}
-        onCancel={() => history.push(`/decks/${deckId}`)}
-        actionText="Save"
-      />
+  initialValues={{ front, back }}
+  onSubmit={handleUpdateCard}
+  onCancel={() => history.push(`/decks/${deckId}`)}
+  actionText="Save"
+  onUpdateValues={(updatedValues) => {
+    setFront(updatedValues.front);
+    setBack(updatedValues.back);
+  }}
+/>
     </div>
   );
 }
