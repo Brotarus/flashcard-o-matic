@@ -49,6 +49,8 @@ function Deck() {
       return <p>No cards available for this deck.</p>;
     }
 
+    console.log("Deck Initial Values:", deck.cards.map((card) => ([ card.front, card.back ])));
+
     return (
       <div>
         <h3>Cards</h3>
