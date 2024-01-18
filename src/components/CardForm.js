@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CardForm({ onSubmit, onCancel, initialValues, actionText, onUpdateValues }) {
+function CardForm({ onSubmit, onCancel, onDone, initialValues, actionText, onUpdateValues }) {
   const [front, setFront] = useState(initialValues.front || "");
   const [back, setBack] = useState(initialValues.back || "");
 
@@ -8,6 +8,14 @@ function CardForm({ onSubmit, onCancel, initialValues, actionText, onUpdateValue
     e.preventDefault();
     console.log("Submitting card info:", { front, back });
     onSubmit({ front, back });
+  };
+
+  const handleButtonClick = () => {
+    if (onDone) {
+      onDone(); // Trigger onDone if it's provided
+    } else if (onCancel) {
+      onCancel(); // Trigger onCancel if onDone is not provided
+    }
   };
 
   useEffect(() => {
@@ -41,9 +49,16 @@ function CardForm({ onSubmit, onCancel, initialValues, actionText, onUpdateValue
         ></textarea>
       </div>
 
-      <button type="button" className="btn btn-secondary mr-2" onClick={onCancel}>
-        Cancel
-      </button>
+      {/* Conditional rendering of either Done or Cancel button */}
+      {onDone ? (
+        <button type="button" className="btn btn-success ml-2" onClick={handleButtonClick}>
+          Done
+        </button>
+      ) : (
+        <button type="button" className="btn btn-secondary ml-2" onClick={handleButtonClick}>
+          Cancel
+        </button>
+      )}
       <button type="submit" className="btn btn-primary">
         {actionText}
       </button>
