@@ -8,6 +8,10 @@ function CardForm({ onSubmit, onCancel, onDone, initialValues, actionText, onUpd
     e.preventDefault();
     console.log("Submitting card info:", { front, back });
     onSubmit({ front, back });
+
+    // Clear form
+    setFront("");
+    setBack("");
   };
 
   const handleButtonClick = () => {

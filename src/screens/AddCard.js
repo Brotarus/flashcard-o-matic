@@ -27,11 +27,6 @@ function AddCard() {
     try {
       console.log("Creating card:", { front, back });
       await createCard(deckId, { front, back });
-      
-      // Clear form after creating a card
-      setFront("");
-      setBack("");
-      console.log("Form state after clearing:", { front, back });
 
       const updatedDeck = await readDeck(deckId);
       setDeck(updatedDeck);
